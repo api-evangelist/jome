@@ -1,8 +1,29 @@
 aid: jome
 name: Jome
-description: Jome is a company surfaced as a portfolio company of techstars and added to the API Evangelist
-  network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+description: Jome is a real estate technology marketplace for buying new construction
+  homes, describing itself as the most joyful way to buy a new home in the age of AI.
+  Buyers can search and compare thousands of new-construction homes and communities
+  from multiple builders, view pricing and builder incentives, instantly book and
+  confirm home tours, and receive AI-powered personalized recommendations, with new-home
+  experts guiding them from contract to closing. Jome operates as a licensed real
+  estate brokerage across 18+ U.S. metros, primarily in Texas, Florida, North Carolina,
+  Arizona, Georgia, Colorado, South Carolina, and Tennessee, and runs dedicated portals
+  for builders and agents. Backed by Techstars. Jome publishes no public API or developer
+  program; this API Evangelist profile captures its company identity and public web
+  presence.
 url: https://raw.githubusercontent.com/api-evangelist/jome/refs/heads/main/apis.yml
+accessModel:
+  pricing: unknown
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Unknown
+  confidence: low
+  source: []
+  generated: '2026-07-22'
+  method: derived
+image: https://jome.com/opengraph-image.jpg
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
@@ -11,9 +32,16 @@ x-tier: stub
 x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-19'
 tags:
 - Company
+- Real Estate
+- PropTech
+- New Construction
+- Homebuilding
+- Marketplace
+- Homebuying
+- Artificial Intelligence
 apis: []
 maintainers:
 - FN: Kin Lane
@@ -23,3 +51,24 @@ maintainers:
 common:
 - type: Website
   url: https://jome.com/
+- type: Blog
+  url: https://blog.jome.com
+- type: Support
+  url: https://jome.com/contact-us
+- type: HelpCenter
+  url: https://jome.com/faq
+- type: Login
+  url: https://jome.com/sign-in
+- type: TermsOfService
+  url: https://jome.com/terms-of-use
+- type: PrivacyPolicy
+  url: https://jome.com/privacy-policy
+- type: LLMsTxt
+  url: llms/jome-llms.txt
+- type: DomainSecurity
+  url: security/jome-domain-security.yml
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence
