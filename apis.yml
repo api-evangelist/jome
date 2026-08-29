@@ -12,6 +12,9 @@ description: Jome is a real estate technology marketplace for buying new constru
   program; this API Evangelist profile captures its company identity and public web
   presence.
 url: https://raw.githubusercontent.com/api-evangelist/jome/refs/heads/main/apis.yml
+x-api-posture: no-product-api
+x-api-posture-basis: observed
+x-api-posture-note: "Jome publishes no public API or developer program; this API Evangelist profile captures its company identity and public web presence."
 deliveryModel:
   model: saas
   open_source: false
