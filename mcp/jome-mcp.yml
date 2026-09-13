@@ -1,0 +1,63 @@
+generated: '2026-09-11'
+method: probed
+source: https://mcp.jome.com/mcp
+status: published
+server:
+  name: jome
+  transport: http
+  url: https://mcp.jome.com/mcp
+deployment:
+  mode: remote
+  endpoint: https://mcp.jome.com/mcp
+  verified: probed
+  probe: live
+  checked: '2026-09-11'
+  source: docs-check 2026-09-12 (endpoint found in the provider's own documentation, then probed)
+tools_count: 22
+tools:
+- name: search_communities
+  description: ''
+- name: search_listings
+  description: ''
+- name: get_cities_by_name
+  description: ''
+- name: get_neighborhoods_by_name
+  description: ''
+- name: get_counties_by_name
+  description: ''
+- name: get_points_of_interest_by_name
+  description: ''
+- name: get_keywords
+  description: ''
+- name: get_city_location_stats
+  description: ''
+- name: get_county_location_stats
+  description: ''
+- name: get_market_location_stats
+  description: ''
+- name: get_neighborhood_location_stats
+  description: ''
+- name: get_zip_code_location_stats
+  description: ''
+- name: get_communities_by_ids
+  description: ''
+- name: get_builders_by_ids
+  description: ''
+- name: get_listings_by_ids
+  description: ''
+- name: get_community_monthly_payments_by_ids
+  description: ''
+- name: get_listing_monthly_payments_by_ids
+  description: ''
+- name: get_master_planned_community_by_ids
+  description: ''
+- name: get_schools_by_district_ids
+  description: ''
+- name: get_builders_by_names
+  description: ''
+- name: get_all_markets
+  description: ''
+- name: get_search_suggestions
+  description: ''
+tools_source: live tools/list via initialize handshake, 2026-09-12 (signals/audit_mcp_authorship.py --probe)
+authorship: provider
