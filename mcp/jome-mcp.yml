@@ -16,48 +16,57 @@ deployment:
 tools_count: 22
 tools:
 - name: search_communities
-  description: ''
+  description: Searches for communities with additional data including walkscore, sound score, schools,
+    reviews, and nearby points of interest.
 - name: search_listings
-  description: ''
+  description: Searches for listings with additional data including walkscore, sound score, nearby points
+    of interest, and community reviews.
 - name: get_cities_by_name
-  description: ''
+  description: Returns cities with the given names.
 - name: get_neighborhoods_by_name
-  description: ''
+  description: Returns neighborhoods with the given names.
 - name: get_counties_by_name
-  description: ''
+  description: Returns counties with the given names.
 - name: get_points_of_interest_by_name
-  description: ''
+  description: Returns points of interest with the given names.
 - name: get_keywords
-  description: ''
+  description: Returns a list of keywords.
 - name: get_city_location_stats
-  description: ''
+  description: Returns location stats for a city by its ID.
 - name: get_county_location_stats
-  description: ''
+  description: Returns location stats for a county by its ID.
 - name: get_market_location_stats
-  description: ''
+  description: Returns location stats for a market by its ID.
 - name: get_neighborhood_location_stats
-  description: ''
+  description: Returns location stats for a neighborhood by its ID.
 - name: get_zip_code_location_stats
-  description: ''
+  description: Returns location stats for a zip code.
 - name: get_communities_by_ids
-  description: ''
+  description: Returns a list of communities with the given ids, including public data like walkscore,
+    schools, etc.
 - name: get_builders_by_ids
-  description: ''
+  description: Returns a list of builders with the given ids, including a list of random community images.
 - name: get_listings_by_ids
-  description: ''
+  description: Returns a list of listings with the given ids, including public data like walkscore, etc.
 - name: get_community_monthly_payments_by_ids
-  description: ''
+  description: Returns monthly payment calculations for communities with the given ids, including payments
+    for each incentive separately.
 - name: get_listing_monthly_payments_by_ids
-  description: ''
+  description: Returns monthly payment calculations for listings with the given ids, including payments
+    for each incentive separately.
 - name: get_master_planned_community_by_ids
-  description: ''
+  description: Returns a list of master planned communities with the given ids.
 - name: get_schools_by_district_ids
-  description: ''
+  description: Returns the schools and district information for given school district ids.
 - name: get_builders_by_names
-  description: ''
+  description: Returns a list of publicly accessible and published builders that match the given names.
+    Each builder includes only id, slug, and name fields.
 - name: get_all_markets
-  description: ''
+  description: Returns all markets.
 - name: get_search_suggestions
-  description: ''
+  description: Returns search suggestions for a given query string. Suggestions include communities, cities,
+    neighborhoods, zip codes, and other location types.
 tools_source: live tools/list via initialize handshake, 2026-09-12 (signals/audit_mcp_authorship.py --probe)
 authorship: provider
+descriptions_source: live tools/list (authorship probe or saved capture); filled by backfill-tools-from-authorship.py
+  --descriptions, 2026-09-28
