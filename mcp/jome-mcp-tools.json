@@ -1,0 +1,939 @@
+{
+  "endpoint": "https://mcp.jome.com/mcp",
+  "captured": "2026-10-20",
+  "method": "initialize + tools/list (anonymous, no tool called; roadmap#992)",
+  "protocol_version": "2025-06-18",
+  "server_info": {
+    "name": "jome-mcp-server",
+    "version": "1.0.0"
+  },
+  "result": {
+    "tools": [
+      {
+        "name": "search_communities",
+        "description": "Searches for communities with additional data including walkscore, sound score, schools, reviews, and nearby points of interest.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "terms": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "search_term": {
+                    "type": "string",
+                    "minLength": 1,
+                    "description": "The search term to use for the search. ID most of the time. Required."
+                  },
+                  "search_type": {
+                    "type": "string",
+                    "enum": [
+                      "zip",
+                      "city",
+                      "neighborhood",
+                      "community",
+                      "community-collection",
+                      "master-planned-community",
+                      "listing",
+                      "school",
+                      "school-district",
+                      "state",
+                      "market",
+                      "geometry",
+                      "nearby-point",
+                      "county",
+                      "point-of-interest"
+                    ],
+                    "description": "The type of search to perform. Required."
+                  }
+                },
+                "required": [
+                  "search_type"
+                ],
+                "additionalProperties": false,
+                "description": "The search term and type for the request"
+              },
+              "description": "The search terms and types for the request"
+            },
+            "filters": {
+              "type": "array",
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "field": {
+                        "type": "string",
+                        "const": "community.selling_status",
+                        "description": "Field to filter by. Required."
+                      },
+                      "value": {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "enum": [
+                            "coming-soon",
+                            "registration",
+                            "selling",
+                            "pre-selling",
+                            "temporary-sold-out",
+                            "sold-out"
+                          ]
+                        },
+                        "description": "Array of values to filter by for the specified field"
+                      },
+                      "operator": {
+                        "type": "string",
+                        "enum": [
+                          "REQUEST_FILTER_OPERATOR_EQ",
+                          "REQUEST_FILTER_OPERATOR_GTE",
+                          "REQUEST_FILTER_OPERATOR_LTE",
+                          "REQUEST_FILTER_OPERATOR_GT",
+                          "REQUEST_FILTER_OPERATOR_LT",
+                          "REQUEST_FILTER_OPERATOR_NEQ",
+                          "REQUEST_FILTER_OPERATOR_IN",
+                          "REQUEST_FILTER_OPERATOR_IS_TRUE",
+                          "REQUEST_FILTER_OPERATOR_EQUAL_BETWEEN",
+                          "REQUEST_FILTER_OPERATOR_CONTAINS"
+                        ],
+                        "default": "REQUEST_FILTER_OPERATOR_EQ",
+                        "description": "The operator to use for the filter. This is used to compare the field with the value. EQ by default."
+                      }
+                    },
+                    "required": [
+                      "field",
+                      "value"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "field": {
+                        "type": "string",
+                        "enum": [
+                          "price",
+                          "size",
+                          "lot_size",
+                          "lot_width",
+                          "bath_count",
+                          "bed_count",
+                          "status",
+                          "unit_type",
+                          "features",
+                          "story_count",
+                          "address.market",
+                          "builder.id",
+                          "community.id",
+                          "collection.id",
+                          "community.info_labels",
+                          "community.is_available_for_investors",
+                          "community.master_planned_community.id",
+                          "community.parent_community_id",
+                          "id",
+                          "community.promotion",
+                          "garage_count",
+                          "community",
+                          "is_public_access_denied",
+                          "facing_direction",
+                          "mls_id",
+                          "monthly_payment",
+                          "cash_to_close",
+                          "cdd_fee_monthly_max",
+                          "community.cdd_fee_monthly_max",
+                          "listed_by"
+                        ],
+                        "description": "Field to filter by. Required."
+                      },
+                      "value": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        },
+                        "description": "Array of values to filter by for the specified field"
+                      },
+                      "operator": {
+                        "$ref": "#/properties/filters/items/anyOf/0/properties/operator"
+                      }
+                    },
+                    "required": [
+                      "field",
+                      "value"
+                    ],
+                    "additionalProperties": false
+                  }
+                ]
+              }
+            },
+            "sort": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "field": {
+                    "type": "string",
+                    "description": "The field to sort by"
+                  },
+                  "direction": {
+                    "type": "string",
+                    "enum": [
+                      "asc",
+                      "desc"
+                    ],
+                    "description": "The order of the sort, either ascending or descending"
+                  }
+                },
+                "required": [
+                  "field",
+                  "direction"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "pagination": {
+              "type": "object",
+              "properties": {
+                "limit": {
+                  "type": "number",
+                  "description": "Maximum number of items to return per page"
+                },
+                "offset": {
+                  "type": "number",
+                  "default": 0,
+                  "description": "Number of items to skip before starting to collect the result set"
+                },
+                "total": {
+                  "type": "boolean",
+                  "default": false,
+                  "description": "Whether to include the total count of items in the response"
+                }
+              },
+              "additionalProperties": false,
+              "description": "Pagination schema for request handling, including limit, offset, and total count options."
+            }
+          },
+          "required": [
+            "terms"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "annotations": {
+          "title": "Search Communities"
+        }
+      },
+      {
+        "name": "search_listings",
+        "description": "Searches for listings with additional data including walkscore, sound score, nearby points of interest, and community reviews.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "terms": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "search_term": {
+                    "type": "string",
+                    "minLength": 1,
+                    "description": "The search term to use for the search. ID most of the time. Required."
+                  },
+                  "search_type": {
+                    "type": "string",
+                    "enum": [
+                      "zip",
+                      "city",
+                      "neighborhood",
+                      "community",
+                      "community-collection",
+                      "master-planned-community",
+                      "listing",
+                      "school",
+                      "school-district",
+                      "state",
+                      "market",
+                      "geometry",
+                      "nearby-point",
+                      "county",
+                      "point-of-interest"
+                    ],
+                    "description": "The type of search to perform. Required."
+                  }
+                },
+                "required": [
+                  "search_type"
+                ],
+                "additionalProperties": false,
+                "description": "The search term and type for the request"
+              },
+              "description": "The search terms and types for the request"
+            },
+            "filters": {
+              "type": "array",
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "field": {
+                        "type": "string",
+                        "const": "status",
+                        "description": "Field to filter by. Required."
+                      },
+                      "value": {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "enum": [
+                            "sold",
+                            "move-in-ready",
+                            "floor-plan",
+                            "under-construction",
+                            "pending-under-contract",
+                            "not-available",
+                            "expired",
+                            "withdrawn",
+                            "hold"
+                          ]
+                        },
+                        "description": "Array of values to filter by for the specified field"
+                      },
+                      "operator": {
+                        "type": "string",
+                        "enum": [
+                          "REQUEST_FILTER_OPERATOR_EQ",
+                          "REQUEST_FILTER_OPERATOR_GTE",
+                          "REQUEST_FILTER_OPERATOR_LTE",
+                          "REQUEST_FILTER_OPERATOR_GT",
+                          "REQUEST_FILTER_OPERATOR_LT",
+                          "REQUEST_FILTER_OPERATOR_NEQ",
+                          "REQUEST_FILTER_OPERATOR_IN",
+                          "REQUEST_FILTER_OPERATOR_IS_TRUE",
+                          "REQUEST_FILTER_OPERATOR_EQUAL_BETWEEN",
+                          "REQUEST_FILTER_OPERATOR_CONTAINS"
+                        ],
+                        "default": "REQUEST_FILTER_OPERATOR_EQ",
+                        "description": "The operator to use for the filter. This is used to compare the field with the value. EQ by default."
+                      }
+                    },
+                    "required": [
+                      "field",
+                      "value"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "field": {
+                        "type": "string",
+                        "const": "unit_type",
+                        "description": "Field to filter by. Required."
+                      },
+                      "value": {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "enum": [
+                            "apartment",
+                            "condo",
+                            "duplex",
+                            "fourplex",
+                            "land",
+                            "manufactured-home",
+                            "mixed-use",
+                            "mobile-home",
+                            "multi-family",
+                            "single-family",
+                            "townhouse",
+                            "triplex",
+                            "penthouse"
+                          ]
+                        },
+                        "description": "Array of values to filter by for the specified field"
+                      },
+                      "operator": {
+                        "$ref": "#/properties/filters/items/anyOf/0/properties/operator"
+                      }
+                    },
+                    "required": [
+                      "field",
+                      "value"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "field": {
+                        "type": "string",
+                        "enum": [
+                          "price",
+                          "size",
+                          "lot_size",
+                          "lot_width",
+                          "bath_count",
+                          "bed_count",
+                          "features",
+                          "story_count",
+                          "address.market",
+                          "builder.id",
+                          "community.selling_status",
+                          "community.id",
+                          "collection.id",
+                          "community.info_labels",
+                          "community.is_available_for_investors",
+                          "community.master_planned_community.id",
+                          "community.parent_community_id",
+                          "id",
+                          "community.promotion",
+                          "garage_count",
+                          "community",
+                          "is_public_access_denied",
+                          "facing_direction",
+                          "mls_id",
+                          "monthly_payment",
+                          "cash_to_close",
+                          "cdd_fee_monthly_max",
+                          "community.cdd_fee_monthly_max",
+                          "listed_by"
+                        ],
+                        "description": "Field to filter by. Required."
+                      },
+                      "value": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        },
+                        "description": "Array of values to filter by for the specified field"
+                      },
+                      "operator": {
+                        "$ref": "#/properties/filters/items/anyOf/0/properties/operator"
+                      }
+                    },
+                    "required": [
+                      "field",
+                      "value"
+                    ],
+                    "additionalProperties": false
+                  }
+                ]
+              }
+            },
+            "sort": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "field": {
+                    "type": "string",
+                    "description": "The field to sort by"
+                  },
+                  "direction": {
+                    "type": "string",
+                    "enum": [
+                      "asc",
+                      "desc"
+                    ],
+                    "description": "The order of the sort, either ascending or descending"
+                  }
+                },
+                "required": [
+                  "field",
+                  "direction"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "pagination": {
+              "type": "object",
+              "properties": {
+                "limit": {
+                  "type": "number",
+                  "description": "Maximum number of items to return per page"
+                },
+                "offset": {
+                  "type": "number",
+                  "default": 0,
+                  "description": "Number of items to skip before starting to collect the result set"
+                },
+                "total": {
+                  "type": "boolean",
+                  "default": false,
+                  "description": "Whether to include the total count of items in the response"
+                }
+              },
+              "additionalProperties": false,
+              "description": "Pagination schema for request handling, including limit, offset, and total count options."
+            }
+          },
+          "required": [
+            "terms"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "annotations": {
+          "title": "Search Listings"
+        }
+      },
+      {
+        "name": "get_cities_by_name",
+        "description": "Returns cities with the given names.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "names": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "The names or slugs of the cities to return."
+            }
+          },
+          "required": [
+            "names"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "annotations": {
+          "title": "Get Cities By Name"
+        }
+      },
+      {
+        "name": "get_neighborhoods_by_name",
+        "description": "Returns neighborhoods with the given names.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "names": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "The names or slugs of the neighborhoods to return."
+            }
+          },
+          "required": [
+            "names"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "annotations": {
+          "title": "Get Neighborhoods By Name"
+        }
+      },
+      {
+        "name": "get_counties_by_name",
+        "description": "Returns counties with the given names.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "names": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "The names or slugs of the counties to return."
+            }
+          },
+          "required": [
+            "names"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "annotations": {
+          "title": "Get Counties By Name"
+        }
+      },
+      {
+        "name": "get_points_of_interest_by_name",
+        "description": "Returns points of interest with the given names.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "names": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "The names or slugs of the points of interest to return."
+            }
+          },
+          "required": [
+            "names"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "annotations": {
+          "title": "Get Points Of Interest By Name"
+        }
+      },
+      {
+        "name": "get_keywords",
+        "description": "Returns a list of keywords.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {}
+        },
+        "annotations": {
+          "title": "Get Keywords"
+        }
+      },
+      {
+        "name": "get_city_location_stats",
+        "description": "Returns location stats for a city by its ID.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "city_id": {
+              "type": "string",
+              "description": "The ID of the city."
+            }
+          },
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "annotations": {
+          "title": "Get City Location Stats"
+        }
+      },
+      {
+        "name": "get_county_location_stats",
+        "description": "Returns location stats for a county by its ID.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "county_id": {
+              "type": "string",
+              "description": "The ID of the county."
+            }
+          },
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "annotations": {
+          "title": "Get County Location Stats"
+        }
+      },
+      {
+        "name": "get_market_location_stats",
+        "description": "Returns location stats for a market by its ID.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "market_code": {
+              "type": "string",
+              "description": "The ID of the market."
+            }
+          },
+          "required": [
+            "market_code"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "annotations": {
+          "title": "Get Market Location Stats"
+        }
+      },
+      {
+        "name": "get_neighborhood_location_stats",
+        "description": "Returns location stats for a neighborhood by its ID.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "neighborhood_id": {
+              "type": "string",
+              "description": "The ID of the neighborhood."
+            }
+          },
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "annotations": {
+          "title": "Get Neighborhood Location Stats"
+        }
+      },
+      {
+        "name": "get_zip_code_location_stats",
+        "description": "Returns location stats for a zip code.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "zip_code": {
+              "type": "string",
+              "description": "The zip code."
+            }
+          },
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "annotations": {
+          "title": "Get Zip Code Location Stats"
+        }
+      },
+      {
+        "name": "get_communities_by_ids",
+        "description": "Returns a list of communities with the given ids, including public data like walkscore, schools, etc.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "ids": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "description": "The ids of the communities to return."
+            }
+          },
+          "required": [
+            "ids"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "annotations": {
+          "title": "Get Communities by IDs"
+        }
+      },
+      {
+        "name": "get_builders_by_ids",
+        "description": "Returns a list of builders with the given ids, including a list of random community images.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "ids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "The ids of the builders to return."
+            }
+          },
+          "required": [
+            "ids"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "annotations": {
+          "title": "Get Builders by IDs"
+        }
+      },
+      {
+        "name": "get_listings_by_ids",
+        "description": "Returns a list of listings with the given ids, including public data like walkscore, etc.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "ids": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "description": "The ids of the listings to return."
+            }
+          },
+          "required": [
+            "ids"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "annotations": {
+          "title": "Get Listings by IDs"
+        }
+      },
+      {
+        "name": "get_community_monthly_payments_by_ids",
+        "description": "Returns monthly payment calculations for communities with the given ids, including payments for each incentive separately.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "ids": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "description": "The ids of the communities to calculate payments for"
+            }
+          },
+          "required": [
+            "ids"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        }
+      },
+      {
+        "name": "get_listing_monthly_payments_by_ids",
+        "description": "Returns monthly payment calculations for listings with the given ids, including payments for each incentive separately.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "ids": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "description": "The ids of the listings to calculate payments for"
+            }
+          },
+          "required": [
+            "ids"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        }
+      },
+      {
+        "name": "get_master_planned_community_by_ids",
+        "description": "Returns a list of master planned communities with the given ids.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "ids": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "description": "The ids of the master planned communities to return."
+            }
+          },
+          "required": [
+            "ids"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "annotations": {
+          "title": "Get Master Planned Communities by IDs"
+        }
+      },
+      {
+        "name": "get_schools_by_district_ids",
+        "description": "Returns the schools and district information for given school district ids.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "district_ids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "The ids of the school districts."
+            }
+          },
+          "required": [
+            "district_ids"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "annotations": {
+          "title": "Get Schools by District IDs"
+        }
+      },
+      {
+        "name": "get_builders_by_names",
+        "description": "Returns a list of publicly accessible and published builders that match the given names. Each builder includes only id, slug, and name fields.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "names": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "The names of the builders to search for."
+            },
+            "limit": {
+              "type": "number",
+              "description": "Maximum number of builders to return (default: 10)."
+            }
+          },
+          "required": [
+            "names"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "annotations": {
+          "title": "Get Builders by Names"
+        }
+      },
+      {
+        "name": "get_all_markets",
+        "description": "Returns all markets.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "annotations": {
+          "title": "Get All Markets"
+        }
+      },
+      {
+        "name": "get_search_suggestions",
+        "description": "Returns search suggestions for a given query string. Suggestions include communities, cities, neighborhoods, zip codes, and other location types.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "string",
+              "minLength": 1,
+              "description": "The search query string to get suggestions for."
+            },
+            "market": {
+              "type": "string",
+              "description": "Optional market slug to scope suggestions to a specific market."
+            },
+            "builder_id": {
+              "type": "number",
+              "description": "Optional builder ID to filter suggestions to a specific builder's inventory."
+            },
+            "search_types": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "zip",
+                  "city",
+                  "neighborhood",
+                  "community",
+                  "community-collection",
+                  "master-planned-community",
+                  "listing",
+                  "school",
+                  "school-district",
+                  "state",
+                  "market",
+                  "geometry",
+                  "nearby-point",
+                  "county",
+                  "point-of-interest"
+                ]
+              },
+              "description": "Optional list of search types to filter suggestions."
+            }
+          },
+          "required": [
+            "query"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "annotations": {
+          "title": "Get Search Suggestions"
+        }
+      }
+    ]
+  }
+}
